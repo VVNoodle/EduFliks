@@ -111,6 +111,7 @@ function details(cari){
       var i = -1; 
       do{
         i++;
+        console.log('THEID: '+data.search[i].id);
         $.getJSON('https://www.wikidata.org/w/api.php?action=parse&page='+data.search[i].id+'&format=json&callback=?', function(info){
 
           var regex = /(main subject).*(?=(country of origin))/g;
@@ -121,13 +122,14 @@ function details(cari){
               return v === "" ? null : v;
             });
             events = parse;
+            events.push(title);
             events.push(cari);
-            console.log('test= ' + events);
+            console.log('test= ' + title);
 
             getDetails(events);
           }
         });
-      }while(data.search[i].description !== undefined && data.search[i].description.includes('film'));
+      }while(!data.search[i].description.includes('film'));
 
     });
 
@@ -180,8 +182,6 @@ function ParseDMS(input) {
     var parts = input.split(/[^\d\w\.]+/);    
     var lat = ConvertDMSToDD(parts[0], parts[1], parts[2], parts[3]);
     var lng = ConvertDMSToDD(parts[4], parts[5], parts[6], parts[7]);
-    // console.log('parts[0]: ' + parts[0] +'parts[2]: ' + parts[2] + 'parts[3]: ' + parts[3] +'parts[4]: ' + parts[4]);
-    // console.log(parts);
     return {
         lattitude: lat,
         longitude: lng,
@@ -201,7 +201,6 @@ function ConvertDMSToDD(days, minutes, seconds, direction) {
 }
 
 function getDetails(events){
-  console.log('TEST');
   var locations;
   $('#eventsDetail').text('');
   console.log('events: '+events);
@@ -210,25 +209,23 @@ function getDetails(events){
       $('#eventsDetail').append('<b>'+data.searchinfo.search+"= </b> <br />"+data.search[0].description+'<br />');
       $('#eventsDetail').show();
       
-
-      
-      $.getJSON('https://www.wikidata.org/w/api.php?action=wbsearchentities&search='+events[x]+'&language=en&format=json&callback=?', function(info){
-
-        console.log('checkdata: '+data.search[0].id)
-        $.getJSON('https://www.wikidata.org/w/api.php?action=parse&page='+data.search[0].id+'&format=json&callback=?', function(coor){
+      for(var y = 0; y < data.search.length; y++){
+        if(data.search[y].description){
+          $.getJSON('https://www.wikidata.org/w/api.php?action=parse&page='+data.search[y].id+'&format=json&callback=?', function(coor){
           var regex = /\d+.{1}\d+'\d+&\w+;N, \d+.{1}\d+'\d+&\w+;W/g;
-          console.log('coor only: '+JSON.stringify(coor).match(regex));
+
           if(JSON.stringify(coor).match(regex)){
+            console.log('coor only: '+JSON.stringify(coor).match(regex).toString());
             var test = JSON.stringify(coor).match(regex).toString().replace(/&quot;/g, ' ').replace(/,/, '');
 
             final = ParseDMS(test);
             console.log('final: '+final[0]);
             initMap();
+            return;
           }
-
-        
-        });
-      });
+          });
+        }//
+      }    
       
 
     });

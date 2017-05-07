@@ -44,7 +44,7 @@
 * element that contains the map. */
 #map {
 margin: 100px;
-margin-top: -30px;
+margin-top: 30px;
 
 height: 40%;
 display:none;
@@ -58,4 +58,8 @@ padding: 0;
 
 body { 
     background: url(cream_dust/cream_dust_@2X.png) repeat 0 0;
+}
+
+#left{
+	color: grey;
 }
