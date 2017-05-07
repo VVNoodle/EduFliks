@@ -13,6 +13,7 @@ var settings = {
   "data": "{}"
 }
 
+
 var imgSet = {
  "async": true,
   "crossDomain": true,
@@ -21,6 +22,35 @@ var imgSet = {
   "headers": {},
   "data": "{}"
 }
+
+var recommended = {
+ "async": true,
+  "crossDomain": true,
+  "url": 'https://api.themoviedb.org/3/discover/movie?api_key=23abb84ac98a9a48d58b9f80720f6b86&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=36%2C%2099',
+  "method": "GET",
+  "headers": {},
+  "data": "{}"
+}
+
+var x = 0; 
+
+$('#rand').on('click', function(){
+ 
+    $.ajax(recommended).done(function (data){
+     if(x <= data.results.length){
+    console.log(JSON.stringify(data.results[x]));
+    $("#rec").append("<h3 id='oyster'>"+data.results[x].original_title+"</h3><div class='col-md-3'><img id='posRec' src=http://image.tmdb.org/t/p/w92//"+data.results[x].poster_path+"></img></div><div class='col-md-3'><h3 id='small'>"+data.results[x].overview+"</h3></div>");
+  
+    $("#rec").show();
+    x++;
+  }else{
+    alert("Those are the recommended list for today!");
+  }
+    });
+  
+});
+ 
+
 
 var title;
 
@@ -92,7 +122,7 @@ function details(cari){
   $.getJSON(searchLink, 
       function(data){
         title = cari;
-        if(!data[1][0].includes('film') && data[1].length > 1){
+        if(data[1][0] && !data[1][0].includes('film') && data[1].length > 1){
           for(var x = 0; x < data[1].length; x++){
             if((data[2][x]).includes("film")){
               $('#details').text(data[1][x]);

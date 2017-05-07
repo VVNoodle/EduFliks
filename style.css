@@ -29,6 +29,7 @@
 
 #events{
 	display:none;
+	color: #1E555C;
 }
 
 #eventsDetail{
@@ -61,5 +62,33 @@ body {
 }
 
 #left{
+	background-color: lightgrey;
 	color: grey;
+}
+
+#right{
+	font-size: 13px;
+	background-color: #84DCC6;
+	color: #222222;
+}
+
+#posRec{
+	display:inline-block;
+}
+
+#rec{
+	margin-right:400px;
+	display: none;
+	border width: 0px;
+	margin: 40px;
+	padding: 50px;
+	
+}
+#small{
+	color: #2B2C28;
+	font-size: 10px;
+}
+
+#oyster{
+	font-size: 11px;
 }
