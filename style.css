@@ -1,0 +1,61 @@
+#test{
+	font-family: 'Inknut Antiqua', serif;
+	margin-top: 200px;
+    font-size: 20px;
+}
+
+#poster{
+    display:none;
+}
+
+#search{
+	margin-left: 200px;
+	margin-right: 200px;
+}
+
+#trueStory{
+	font-size: 10px;
+	font-family: 'Raleway', sans-serif;
+}
+
+#historicalFacts{
+	display:none;
+}
+
+#info{
+	font-size: 10px;
+	font-family: 'Open Sans', sans-serif;
+}
+
+#events{
+	display:none;
+}
+
+#eventsDetail{
+	color:grey;
+}
+
+#overview{
+	font-size: 12px;
+}
+
+
+/* Always set the map height explicitly to define the size of the div
+* element that contains the map. */
+#map {
+margin: 100px;
+margin-top: -30px;
+
+height: 40%;
+display:none;
+}
+/* Optional: Makes the sample page fill the window. */
+html, body {
+height: 100%;
+margin: 0;
+padding: 0;
+}
+
+body { 
+    background: url(cream_dust/cream_dust_@2X.png) repeat 0 0;
+}
